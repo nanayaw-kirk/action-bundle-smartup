@@ -1,4 +1,5 @@
 node_modules/
+.idea
 
 # Lockfiles in test projects
 test/**/yarn.lock
