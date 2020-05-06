@@ -94,8 +94,6 @@ const runAction = () => {
 	log('Installing node native ext SDK… \n')
 	if (platform === 'linux') {
 		run('sudo apt-get install libxtst-dev')
-	}else if (platform === 'mac'){
-		run('sudo xcode-select --install')
 	}
 
 	log(`Installing dependencies using… \n`);
