@@ -91,15 +91,15 @@ const runAction = () => {
 	// Disable console advertisements during install phase
 	setEnv("ADBLOCK", true);
 
-	log('Installing node native ext SDK')
+	log('Installing node native ext SDK… \n')
 	if (platform === 'linux') {
 		run('apt-get install libxtst-dev')
 	}
 
-	log(`Installing dependencies using…`);
+	log(`Installing dependencies using… \n`);
 	run("yarn install", pkgRoot);
 
-	log(`Building${release ? " and releasing" : ""} the Electron app…`);
+	log(`Building${release ? " and releasing" : ""} the Electron app… \n`);
 	run( `yarn run build ${(release ? "-- --publish always" : "")}`, pkgRoot);
 };
 
