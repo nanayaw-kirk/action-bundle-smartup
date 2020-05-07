@@ -1,5 +1,5 @@
 {
-	"name": "action-electron-builder",
+	"name": "action-electron-nuxt",
 	"version": "1.4.4",
 	"description": "GitHub Action for building and releasing Electron apps",
 	"author": {

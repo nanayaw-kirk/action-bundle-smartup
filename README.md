@@ -1,23 +1,18 @@
-# Electron Builder Action
+# Electron Nuxt Action
 
-**GitHub Action for building and releasing Electron apps**
-
-This is a GitHub Action for automatically building and releasing your Electron app using GitHub's CI/CD capabilities. It uses [`electron-builder`](https://github.com/electron-userland/electron-builder) to package your app and release it to a platform like GitHub Releases.
-
-GitHub Actions allows you to build your app on macOS, Windows and Linux without needing direct access to each of these operating systems.
+**GitHub Action for building and releasing [electron-nuxt](https://github.com/michalzaq12/electron-nuxt) apps**
 
 ## Setup
-
-1. **Install and configure `electron-builder`** (v22+) in your Electron app. You can read about this in [the project's docs](https://www.electron.build) or in [my blog post](https://samuelmeuli.com/blog/2019-04-07-packaging-and-publishing-an-electron-app).
-
-2. If you need to compile code (e.g. TypeScript to JavaScript or Sass to CSS), make sure this is done using a **`build` script in your `package.json` file**. The action will execute that script before packaging your app. However, **make sure that the `build` script does _not_ run `electron-builder`**, as this action will do that for you.
-
-3. **Add a workflow file** to your project (e.g. `.github/workflows/build.yml`):
+**Add a workflow file** to your project (e.g. `.github/workflows/build.yml`).
+Using the workflow below, GitHub will build your app every time you push a commit to master branch.
 
    ```yml
    name: Build/release
 
-   on: push
+   on:
+     push:
+       branches:
+         - master
 
    jobs:
      release:
@@ -37,46 +32,20 @@ GitHub Actions allows you to build your app on macOS, Windows and Linux without 
              node-version: 10
 
          - name: Build/release Electron app
-           uses: samuelmeuli/action-electron-builder@v1
+           uses: michalzaq12/action-electron-nuxt@v1
            with:
              # GitHub token, automatically provided to the action
              # (No need to define this secret in the repo settings)
+             # type: string
              github_token: ${{ secrets.github_token }}
 
-             # If the commit is tagged with a version (e.g. "v1.0.0"),
-             # release the app after building
+             # If the commit is tagged with a version (e.g. "v1.0.0")
+             # type: boolean
              release: ${{ startsWith(github.ref, 'refs/tags/v') }}
    ```
 
-## Usage
-
-### Building
-
-Using this the workflow above, GitHub will build your app every time you push a commit.
-
-### Releasing
-
-When you want to create a new release, follow these steps:
-
-1. Update the version in your project's `package.json` file (e.g. `1.2.3`)
-2. Commit that change (`git commit -am v1.2.3`)
-3. Tag your commit (`git tag v1.2.3`). Make sure your tag name's format is `v*.*.*`. Your workflow will use this tag to detect when to create a release
-4. Push your changes to GitHub (`git push && git push --tags`)
-
-After building successfully, the action will publish your release artifacts. By default, a new release draft will be created on GitHub with download links for your app. If you want to change this behavior, have a look at the [`electron-builder` docs](https://www.electron.build).
 
 ## Configuration
-
-### Options
-
-You can configure the action further with the following options:
-
-- `package_root`: Directory where NPM/Yarn commands should be run (default: `"."`)
-- `build_script_name`: Name of the optional NPM build script which is executed before `electron-builder` (default: `"build"`)
-- `skip_build`: Whether the action should execute the NPM build script before running `electron-builder`
-- `use_vue_cli`: Whether to run `electron-builder` using the [Vue CLI plugin](https://nklayman.github.io/vue-cli-plugin-electron-builder) instead of calling the command directly
-
-See [`action.yml`](./action.yml) for a list of all possible input variables.
 
 ### Code Signing
 
@@ -92,7 +61,7 @@ Add the following options to your workflow's existing `action-electron-builder` 
 
 ```yml
 - name: Build/release Electron app
-  uses: samuelmeuli/action-electron-builder@v1
+  uses: michalzaq12/action-electron-nuxt@v1
   with:
     # ...
     mac_certs: ${{ secrets.mac_certs }}
@@ -142,7 +111,7 @@ If you've configured `electron-builder` to notarize your Electron Mac app [as de
 
     ```yml
     - name: Build/release Electron app
-      uses: samuelmeuli/action-electron-builder@v1
+      uses: michalzaq12/action-electron-nuxt@v1
       with:
         # ...
       env:
@@ -151,16 +120,7 @@ If you've configured `electron-builder` to notarize your Electron Mac app [as de
         API_KEY_ISSUER_ID: ${{ secrets.api_key_issuer_id }}
     ```
 
-## Example
 
-For an example of the action used in production (including app notarization and publishing to Snapcraft), see [Mini Diary](https://github.com/samuelmeuli/mini-diary).
+### Credits
 
-## Development
-
-Suggestions and contributions are always welcome! Please discuss larger changes via issue before submitting a pull request.
-
-## Related
-
-- [Snapcraft Action](https://github.com/samuelmeuli/action-snapcraft) – GitHub Action for setting up Snapcraft
-- [Lint Action](https://github.com/samuelmeuli/lint-action) – GitHub Action for detecting and fixing linting errors
-- [Maven Publish Action](https://github.com/samuelmeuli/action-maven-publish) – GitHub Action for automatically publishing Maven packages
+https://github.com/samuelmeuli/action-electron-builder
