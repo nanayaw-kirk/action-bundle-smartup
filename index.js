@@ -90,12 +90,7 @@ const runAction = () => {
 
 	// Disable console advertisements during install phase
 	setEnv("ADBLOCK", true);
-
-	log('Installing node native ext SDK… \n')
-	if (platform === 'linux') {
-		run('sudo apt-get install libxtst-dev')
-	}
-
+	
 	log(`Installing dependencies using… \n`);
 	run("yarn install", pkgRoot);
 
