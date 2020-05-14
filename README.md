@@ -29,7 +29,7 @@ Using the workflow below, GitHub will build your app every time you push a commi
          - name: Install Node.js, NPM and Yarn
            uses: actions/setup-node@v1
            with:
-             node-version: 10
+             node-version: 12
 
          - name: Build/release Electron app
            uses: michalzaq12/action-electron-nuxt@v1
