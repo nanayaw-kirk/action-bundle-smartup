@@ -88,14 +88,8 @@ const runAction = () => {
 		setEnv("CSC_KEY_PASSWORD", getInput("windows_certs_password"));
 	}
 
-	// Disable console advertisements during install phase
-	setEnv("ADBLOCK", true);
-	
-	log(`Installing dependencies using… \n`);
-	run("yarn install", pkgRoot);
-
 	log(`Building${release ? " and releasing" : ""} the Electron app… \n`);
-	run( `yarn run build ${(release ? "-- --publish always" : "")}`, pkgRoot);
+	run( `yarn run build ${(release ? "--publish always" : "")}`, pkgRoot);
 };
 
 runAction();
