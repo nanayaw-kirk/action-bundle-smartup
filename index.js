@@ -78,16 +78,6 @@ const runAction = () => {
 	// Copy "github_token" input variable to "GH_TOKEN" env variable (required by `electron-builder`)
 	setEnv("GH_TOKEN", getInput("github_token", true));
 
-	// Require code signing certificate and password if building for macOS. Export them to environment
-	// variables (required by `electron-builder`)
-	if (platform === "mac") {
-		setEnv("CSC_LINK", getInput("mac_certs"));
-		setEnv("CSC_KEY_PASSWORD", getInput("mac_certs_password"));
-	} else if (platform === "windows") {
-		setEnv("CSC_LINK", getInput("windows_certs"));
-		setEnv("CSC_KEY_PASSWORD", getInput("windows_certs_password"));
-	}
-
 	log(`Building${release ? " and releasing" : ""} the Electron app… \n`);
 	run( `yarn run build ${(release ? "--publish always" : "")}`, pkgRoot);
 };

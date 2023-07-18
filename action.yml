@@ -12,21 +12,6 @@ inputs:
     required: false
     default: false
 
-  mac_certs:
-    description: Base64-encoded code signing certificate for macOS
-    required: false
-  mac_certs_password:
-    description: Password for decrypting `mac_certs`
-    required: false
-
-  windows_certs:
-    description: Base64-encoded code signing certificate for Windows
-    required: false
-  windows_certs_password:
-    description: Password for decrypting `windows_certs`
-    required: false
-
-
 runs:
   using: node12
   main: index.js
